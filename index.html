@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#160814" />
-  <title>تقدیم به محدثه</title>
+  <title>ماهگردمون مبارک محدثه</title>
   <style>
     :root {
       --bg1: #120610;
@@ -21,33 +21,23 @@
       --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
       width: 100%;
       height: 100%;
       margin: 0;
       overflow: hidden;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255, 92, 157, 0.18), transparent 26%),
-        radial-gradient(circle at 80% 20%, rgba(155, 108, 255, 0.18), transparent 28%),
-        radial-gradient(circle at 50% 80%, rgba(255, 214, 107, 0.12), transparent 30%),
-        linear-gradient(135deg, var(--bg1), var(--bg2) 48%, var(--bg3));
+      background: linear-gradient(135deg, var(--bg1), var(--bg2) 48%, var(--bg3));
       color: var(--text);
-      -webkit-tap-highlight-color: transparent;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(transparent 49.5%, rgba(255,255,255,0.03) 50%, transparent 50.5%),
-        linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,0.03) 50%, transparent 50.5%);
-      background-size: 84px 84px;
-      opacity: 0.14;
-      mask-image: radial-gradient(circle at center, black 20%, transparent 100%);
+    body {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .orb {
@@ -59,31 +49,25 @@
       opacity: 0.22;
       pointer-events: none;
       animation: drift 11s ease-in-out infinite;
+      z-index: 0;
     }
 
     .orb.one {
       top: -90px;
       left: -90px;
-      background: radial-gradient(circle, rgba(255, 92, 157, 0.95), transparent 65%);
+      background: radial-gradient(circle, var(--pink), transparent 65%);
     }
 
     .orb.two {
       top: 10%;
       right: -100px;
-      background: radial-gradient(circle, rgba(155, 108, 255, 0.9), transparent 65%);
+      background: radial-gradient(circle, var(--violet), transparent 65%);
       animation-duration: 13s;
     }
 
-    .orb.three {
-      bottom: -110px;
-      left: 20%;
-      background: radial-gradient(circle, rgba(255, 214, 107, 0.85), transparent 65%);
-      animation-duration: 15s;
-    }
-
     @keyframes drift {
-      0%, 100% { transform: translate3d(0,0,0) scale(1); }
-      50% { transform: translate3d(18px,-16px,0) scale(1.08); }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08) translate(20px, -20px); }
     }
 
     .wrap {
@@ -99,355 +83,379 @@
       width: min(100%, 760px);
       border-radius: 28px;
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
-      box-shadow: var(--shadow);
+      background: var(--glass);
       backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 30px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
       overflow: hidden;
-      transform: translateY(0);
-      transition: transform .35s ease, box-shadow .35s ease;
     }
 
-    .card:active { transform: scale(0.995); }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 35%, rgba(255,255,255,0.03));
+      pointer-events: none;
+    }
+
+    .counter-box {
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .counter-num {
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(to bottom, #fff, var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease, filter 0.2s ease, text-shadow 0.2s ease;
+      display: inline-block;
+      will-change: transform;
+    }
+
+    .counter-num.active-30 {
+      animation: pulse30 0.7s ease;
+      text-shadow: 0 0 18px rgba(255, 214, 107, 0.95), 0 0 36px rgba(255, 92, 157, 0.7);
+    }
+
+    .counter-num.sparkle {
+      filter: brightness(1.25) saturate(1.35);
+    }
+
+    @keyframes pulse30 {
+      0%   { transform: scale(1); }
+      25%  { transform: scale(1.18) rotate(-3deg); }
+      50%  { transform: scale(0.98) rotate(2deg); }
+      75%  { transform: scale(1.22) rotate(-2deg); }
+      100% { transform: scale(1); }
+    }
+
+    .counter-text {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
 
     .hero {
-      text-align: center;
-      padding: 24px 18px 16px;
+      position: relative;
+      z-index: 1;
     }
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 16px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink), var(--gold));
-      box-shadow: 0 0 16px rgba(255, 92, 157, 0.9);
-    }
-
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(2rem, 6.5vw, 4rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
+    .hero h1 {
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      margin: 0 0 15px;
+      line-height: 1.5;
     }
 
     .glow {
-      background: linear-gradient(135deg, #fff 0%, var(--rose) 28%, var(--violet) 62%, var(--gold) 100%);
+      background: linear-gradient(135deg, #fff, var(--rose), var(--violet));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .typed {
-      min-height: 132px;
-      max-width: 44ch;
-      margin: 0 auto 8px;
-      font-size: clamp(15px, 3.8vw, 18px);
-      line-height: 2.05;
+      min-height: 120px;
+      font-size: 1.08rem;
+      line-height: 1.9;
       color: var(--muted);
+      margin: 20px 0 10px;
+      white-space: pre-wrap;
     }
 
     .cursor {
       display: inline-block;
-      width: 9px;
-      height: 1.1em;
-      vertical-align: -0.2em;
-      margin-right: 3px;
-      border-radius: 2px;
-      background: linear-gradient(var(--pink), var(--gold));
-      animation: blink .8s step-end infinite;
+      width: 8px;
+      height: 1em;
+      background: var(--pink);
+      vertical-align: -2px;
+      animation: blink 0.8s step-end infinite;
+      border-radius: 4px;
     }
 
-    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
 
     .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding: 0 18px 18px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      position: relative;
+      z-index: 1;
     }
 
     button {
-      min-height: 62px;
+      padding: 15px 30px;
       border: none;
-      border-radius: 18px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 800;
+      border-radius: 15px;
+      font-weight: 700;
       cursor: pointer;
-      touch-action: manipulation;
-      transition: transform .15s ease, filter .2s ease;
+      color: white;
+      transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+      font-size: 1rem;
+    }
+
+    button:active {
+      transform: scale(0.95);
     }
 
     .start {
       background: linear-gradient(135deg, var(--pink), var(--violet));
-      box-shadow: 0 16px 34px rgba(255, 92, 157, 0.25);
     }
 
-    .surprise {
-      background: linear-gradient(135deg, var(--gold), var(--rose));
-      box-shadow: 0 16px 34px rgba(255, 214, 107, 0.18);
-    }
-
-    button:active { transform: scale(0.98); filter: brightness(1.04); }
-
-    .panel {
-      padding: 0 18px 18px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .mini {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .mini b {
-      font-size: 14px;
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .mini span {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .mini .icons {
-      font-size: 18px;
-      letter-spacing: 3px;
-      white-space: nowrap;
-      color: #fff;
-      text-shadow: 0 0 10px rgba(255, 92, 157, 0.55);
-    }
-
-    .progress {
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .progress i {
-      display: block;
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, var(--pink), var(--violet), var(--gold));
-      animation: fill 4s ease forwards;
-    }
-
-    @keyframes fill { to { width: 100%; } }
-
-    .hint {
-      padding: 0 18px 18px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.9;
+    .start:hover {
+      box-shadow: 0 12px 28px rgba(255, 92, 157, 0.25);
     }
 
     .heart {
       position: fixed;
       z-index: 5;
       pointer-events: none;
-      font-size: 18px;
       animation: rise 1.5s ease-out forwards;
-      filter: drop-shadow(0 0 10px rgba(255, 92, 157, 0.7));
+      font-size: 20px;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.15));
     }
 
     @keyframes rise {
-      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
-      100% { transform: translate(-50%, -140px) scale(1.8); opacity: 0; }
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-150px) scale(1.5);
+        opacity: 0;
+      }
     }
 
     .flash {
       position: fixed;
       inset: 0;
-      background: #fff;
-      opacity: 0;
       pointer-events: none;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.18), transparent 55%);
+      opacity: 0;
       z-index: 4;
     }
 
     .flash.on {
-      animation: flash .45s ease-out;
+      animation: flashPop 0.6s ease;
     }
 
-    @keyframes flash {
+    @keyframes flashPop {
       0% { opacity: 0; }
-      20% { opacity: 0.18; }
+      20% { opacity: 1; }
       100% { opacity: 0; }
     }
 
-    .shake {
-      animation: shake .35s linear 1;
-    }
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 18px;
+        border-radius: 22px;
+      }
 
-    @keyframes shake {
-      0% { transform: translate(0,0); }
-      20% { transform: translate(2px,-1px); }
-      40% { transform: translate(-2px,2px); }
-      60% { transform: translate(2px,1px); }
-      80% { transform: translate(-1px,-2px); }
-      100% { transform: translate(0,0); }
-    }
+      .typed {
+        min-height: 140px;
+        font-size: 1rem;
+      }
 
-    @media (max-width: 520px) {
-      .card { border-radius: 24px; }
-      .actions { grid-template-columns: 1fr; }
-      .typed { min-height: 150px; }
-      .mini { flex-direction: column; align-items: flex-start; }
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="orb one"></div>
   <div class="orb two"></div>
-  <div class="orb three"></div>
   <div class="flash" id="flash"></div>
 
   <main class="wrap">
     <section class="card" id="card">
+      <div class="counter-box">
+        <div class="counter-num" id="counter">0</div>
+        <div class="counter-text">روز در کنار هم...</div>
+      </div>
+
       <div class="hero">
-        <div class="tag"><span class="dot"></span> تقدیم به محدثه</div>
-        <h1><span class="glow">محدثه</span>، ماهگردمون مبارک ❤️</h1>
+        <h1>ماهگردمون مبارک <span class="glow">محدثه</span> عزیز ❤️</h1>
         <div class="typed" id="typed"></div>
       </div>
 
       <div class="actions">
-        <button class="start" id="startBtn">شروع موسیقی</button>
-        <button class="surprise" id="surpriseBtn">سوپرایز کن</button>
+        <button class="start" id="startBtn">شروع سورپرایز</button>
       </div>
-
-      <div class="panel">
-        <div class="mini">
-          <div>
-            <b>هر لمس، یک قلب برای تو</b>
-            <span>این صفحه با اسم تو روشن‌تر می‌شود.</span>
-          </div>
-          <div class="icons">❤ ✦ ✨</div>
-        </div>
-
-        <div class="progress"><i></i></div>
-      </div>
-
-
     </section>
   </main>
 
-  <audio id="music" loop preload="auto">
-    <source src="sm.mp3" type="audio/mpeg">
+  <audio id="music" loop>
+    <source src="sm.mp3" type="audio/mpeg" />
   </audio>
 
   <script>
+    const counter = document.getElementById('counter');
     const typed = document.getElementById('typed');
     const music = document.getElementById('music');
     const startBtn = document.getElementById('startBtn');
-    const surpriseBtn = document.getElementById('surpriseBtn');
     const flash = document.getElementById('flash');
-    const card = document.getElementById('card');
 
     const lines = [
-      "عزیزترینم، محدثه...",
-      "یک ماه گذشت، پر از حس‌های تازه و قشنگ.",
-      "توی این ۳۰ روز یاد گرفتم که چطور با تو خوشبخت‌ترین آدم دنیا باشم.",
-      "این صفحه یه هدیه کوچیک از طرف منه،",
-      "برای اینکه بدونی ضربان قلب من، با اسم تو تنظیم شده.",
-      "هرجا که لمسش کنی، یه قلب برای تو میسازه..."
+      "یک ماه پیش، دنیای من با تو قشنگ‌تر شد.",
+      "توی این ۳۰ روز، هر لبخندت برای من یک خاطره بود.",
+      "تو دلیل آرامش و هیجان قشنگ قلبمی.",
+      "این سورپرایز کوچیک فقط برای توئه، محدثه عزیز..."
     ];
 
     let started = false;
+    let counterReached30 = false;
 
-    function typeText(index = 0, charIndex = 0) {
-      if (index >= lines.length) return;
-      const current = lines[index];
-      typed.innerHTML = current.slice(0, charIndex) + '<span class="cursor"></span>';
+    function vibrate(pattern) {
+      if (navigator.vibrate) navigator.vibrate(pattern);
+    }
 
-      const speed = charIndex < current.length ? 42 : 650;
-      if (charIndex < current.length) {
-        setTimeout(() => typeText(index, charIndex + 1), speed);
-      } else {
-        setTimeout(() => typeText(index + 1, 0), speed);
+    function createHeart(x, y, emoji) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.innerHTML = emoji || ['❤', '💖', '✨', '💘'][Math.floor(Math.random() * 4)];
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      const dx = (Math.random() - 0.5) * 60;
+      const dy = -80 - Math.random() * 90;
+      const rot = (Math.random() - 0.5) * 35;
+      const scale = 0.9 + Math.random() * 0.8;
+      h.style.transform = `translate(0,0) rotate(${rot}deg) scale(${scale})`;
+      document.body.appendChild(h);
+
+      requestAnimationFrame(() => {
+        h.style.transition = 'transform 1.5s ease-out, opacity 1.5s ease-out';
+        h.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scale + 0.5})`;
+        h.style.opacity = '0';
+      });
+
+      setTimeout(() => h.remove(), 1550);
+    }
+
+    function burstHearts(x, y, amount = 16) {
+      const emojis = ['❤️', '💖', '✨', '💘'];
+      for (let i = 0; i < amount; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+        const angle = (Math.PI * 2 * i) / amount;
+        const dist = 30 + Math.random() * 80;
+        const offsetX = Math.cos(angle) * dist;
+        const offsetY = Math.sin(angle) * dist;
+
+        h.style.left = x + 'px';
+        h.style.top = y + 'px';
+        h.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${0.85 + Math.random() * 0.7})`;
+        document.body.appendChild(h);
+
+        requestAnimationFrame(() => {
+          h.style.transition = 'transform 1.4s ease-out, opacity 1.4s ease-out';
+          h.style.transform = `translate(${offsetX * 1.25}px, ${offsetY - 120}px) scale(${1.2 + Math.random() * 0.4})`;
+          h.style.opacity = '0';
+        });
+
+        setTimeout(() => h.remove(), 1500);
       }
     }
 
-    function heartAt(x, y) {
-      const el = document.createElement('div');
-      el.className = 'heart';
-      const hearts = ['❤', '💖', '✨', '💘'];
-      el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-      el.style.left = x + 'px';
-      el.style.top = y + 'px';
-      el.style.fontSize = (16 + Math.random() * 18) + 'px';
-      el.style.color = ['#ff5c9d', '#ff7ab8', '#9b6cff', '#ffd66b'][Math.floor(Math.random() * 4)];
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1500);
+    function animateCounter() {
+      let count = 0;
+      counter.textContent = '0';
+      counterReached30 = false;
+
+      const timer = setInterval(() => {
+        count++;
+        counter.textContent = count;
+
+        if (count >= 30) {
+          clearInterval(timer);
+          counterReached30 = true;
+          counter.classList.add('active-30');
+          setTimeout(() => counter.classList.remove('active-30'), 900);
+        }
+      }, 50);
     }
 
-    function burst(x, y) {
+    function typeText(lineIdx = 0, charIdx = 0) {
+      if (lineIdx >= lines.length) {
+        typed.innerHTML = lines[lines.length - 1] + '<span class="cursor"></span>';
+        return;
+      }
+
+      typed.innerHTML = lines[lineIdx].slice(0, charIdx) + '<span class="cursor"></span>';
+
+      if (charIdx < lines[lineIdx].length) {
+        setTimeout(() => typeText(lineIdx, charIdx + 1), 40);
+      } else {
+        setTimeout(() => typeText(lineIdx + 1, 0), 1000);
+      }
+    }
+
+    function runSpecialThirtyEffect() {
+      const rect = counter.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      counter.classList.add('sparkle');
+      counter.classList.add('active-30');
       flash.classList.remove('on');
       void flash.offsetWidth;
       flash.classList.add('on');
 
-      card.classList.remove('shake');
-      void card.offsetWidth;
-      card.classList.add('shake');
+      burstHearts(x, y, 24);
+      vibrate([40, 30, 40, 30, 60]);
 
-      for (let i = 0; i < 12; i++) {
-        setTimeout(() => {
-          heartAt(
-            x + (Math.random() * 80 - 40),
-            y + (Math.random() * 50 - 25)
-          );
-        }, i * 32);
+      setTimeout(() => {
+        counter.classList.remove('sparkle');
+        counter.classList.remove('active-30');
+      }, 900);
+    }
+
+    counter.addEventListener('click', (e) => {
+      if (counter.textContent === '30' && started) {
+        e.stopPropagation();
+        runSpecialThirtyEffect();
       }
-
-      if (navigator.vibrate) navigator.vibrate([20, 30, 20]);
-    }
-
-    function startExperience() {
-      if (started) return;
-      started = true;
-      music.volume = 0.9;
-      music.play().catch(() => {});
-      typeText();
-
-      document.body.addEventListener('pointerdown', (e) => {
-        heartAt(e.clientX, e.clientY);
-        if (navigator.vibrate) navigator.vibrate(16);
-      }, { passive: true });
-    }
-
-    startBtn.addEventListener('click', () => {
-      startExperience();
-      burst(window.innerWidth * 0.5, window.innerHeight * 0.42);
     });
 
-    surpriseBtn.addEventListener('click', () => {
-      startExperience();
-      const x = window.innerWidth * (0.42 + Math.random() * 0.2);
-      const y = window.innerHeight * (0.35 + Math.random() * 0.18);
-      burst(x, y);
-      music.currentTime = Math.min((music.duration || 0), music.currentTime + 2);
-      music.play().catch(() => {});
+    startBtn.addEventListener('click', async () => {
+      if (started) return;
+      started = true;
+
+      startBtn.style.opacity = '0';
+      startBtn.style.pointerEvents = 'none';
+
+      try {
+        await music.play();
+      } catch (err) {
+        // Autoplay may be blocked until user interaction; click already counts as interaction.
+      }
+
+      vibrate(30);
+      animateCounter();
+      typeText();
+    });
+
+    document.body.addEventListener('click', (e) => {
+      const targetIsCounter = e.target === counter || counter.contains(e.target);
+      const targetIsButton = e.target === startBtn;
+      if (!targetIsCounter && !targetIsButton) {
+        createHeart(e.clientX, e.clientY);
+      }
     });
   </script>
 </body>
