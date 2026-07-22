@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#060814" />
   <title>LoveOS | رضا × محدثه</title>
-
   <style>
     :root{
       --bg:#050816;
-      --bg2:#090d1f;
       --card:rgba(255,255,255,.08);
-      --card2:rgba(255,255,255,.04);
       --stroke:rgba(255,255,255,.14);
       --text:#f5f7ff;
       --muted:rgba(245,247,255,.72);
@@ -26,13 +23,11 @@
     html,body{
       width:100%;
       min-height:100%;
-      background:
-        radial-gradient(circle at top, #10193c 0%, #050816 42%, #02030a 100%);
+      background: radial-gradient(circle at top, #10193c 0%, #050816 42%, #02030a 100%);
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x:hidden;
       -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
     }
 
     body::before{
@@ -47,10 +42,11 @@
       filter: blur(10px);
     }
 
-    canvas#fx{
+    #fx{
       position:fixed; inset:0;
       width:100%; height:100%;
       z-index:0;
+      pointer-events:none;
     }
 
     .app{
@@ -73,6 +69,7 @@
       backdrop-filter: blur(18px);
       transition: opacity .8s ease, transform .8s ease;
     }
+
     .gate.hidden{
       opacity:0;
       transform: scale(1.04);
@@ -90,7 +87,9 @@
       backdrop-filter: blur(24px);
       position:relative;
       overflow:hidden;
+      isolation:isolate;
     }
+
     .gate-card::after{
       content:"";
       position:absolute;
@@ -98,7 +97,10 @@
       background: linear-gradient(135deg, transparent, rgba(255,255,255,.10), transparent);
       transform: rotate(20deg);
       animation: shine 4s linear infinite;
+      pointer-events:none;
+      z-index:-1;
     }
+
     @keyframes shine{
       0%{transform:translateX(-40%) rotate(20deg)}
       100%{transform:translateX(40%) rotate(20deg)}
@@ -121,12 +123,11 @@
     .title{
       font-size: clamp(2rem, 6vw, 3.8rem);
       line-height:1.05;
-      letter-spacing:-.03em;
+      letter-spacing:0;
       margin-bottom:14px;
       background: linear-gradient(135deg, #fff, #ff7ab8 45%, #a78bfa 80%, #7dd3fc);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
-      text-shadow: 0 0 30px rgba(255,77,141,.08);
     }
 
     .subtitle{
@@ -139,7 +140,7 @@
     .start-btn{
       width:100%;
       border:none;
-      border-radius: 18px;
+      border-radius:18px;
       padding:16px 18px;
       color:white;
       font-weight:700;
@@ -147,20 +148,24 @@
       background: linear-gradient(135deg, #ff4d8d, #8b5cf6 55%, #22d3ee);
       box-shadow: 0 14px 40px rgba(139,92,246,.32);
       cursor:pointer;
-      transform: translateZ(0);
       transition: transform .2s ease, filter .2s ease;
       position:relative;
       overflow:hidden;
+      touch-action:manipulation;
     }
-    .start-btn:active{transform: scale(.98)}
+
+    .start-btn:active{transform:scale(.98)}
     .start-btn::after{
       content:"";
-      position:absolute; top:0; left:-120%;
+      position:absolute;
+      top:0; left:-120%;
       width:60%; height:100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,.32), transparent);
       transform: skewX(-20deg);
       animation: btnshine 2.8s infinite;
+      pointer-events:none;
     }
+
     @keyframes btnshine{
       0%{left:-120%}
       100%{left:180%}
@@ -172,14 +177,9 @@
       align-items:center;
       justify-content:center;
       padding:18px;
-      position:relative;
     }
 
-    .hero-wrap{
-      width:min(100%, 980px);
-      display:grid;
-      gap:16px;
-    }
+    .hero-wrap{width:min(100%,980px);display:grid;gap:16px}
 
     .panel{
       border:1px solid var(--stroke);
@@ -191,19 +191,9 @@
       position:relative;
     }
 
-    .hero-top{
-      padding:20px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
+    .hero-top{padding:20px;display:flex;flex-direction:column;gap:14px}
 
-    .chip-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
+    .chip-row{display:flex;flex-wrap:wrap;gap:10px}
     .chip{
       padding:9px 12px;
       border-radius:999px;
@@ -213,23 +203,16 @@
       font-size:12px;
     }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-    }
-
-    .hero-card{
-      min-height:220px;
-      padding:20px;
-    }
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    .hero-card{min-height:220px;padding:20px}
 
     .big{
       font-size: clamp(2.1rem, 7vw, 4.5rem);
       line-height:1.02;
-      letter-spacing:-.05em;
+      letter-spacing:0;
       margin-bottom:14px;
     }
+
     .big span{
       background: linear-gradient(135deg, #fff, #ff5c93 40%, #8b5cf6 75%, #22d3ee);
       -webkit-background-clip:text;
@@ -240,15 +223,10 @@
       color:var(--muted);
       font-size:15px;
       line-height:2;
-      max-width: 52ch;
+      max-width:52ch;
     }
 
-    .stats{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:12px;
-    }
-
+    .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
     .stat{
       padding:16px;
       border-radius:22px;
@@ -258,6 +236,7 @@
       position:relative;
       overflow:hidden;
     }
+
     .stat::before{
       content:"";
       position:absolute;
@@ -265,36 +244,26 @@
       width:120px;height:120px;
       background: radial-gradient(circle, rgba(255,77,141,.25), transparent 70%);
       filter: blur(10px);
-    }
-    .stat .n{
-      font-size: 2rem;
-      font-weight:800;
-      margin-bottom:6px;
-    }
-    .stat .l{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.7;
+      pointer-events:none;
     }
 
+    .stat .n{font-size:2rem;font-weight:800;margin-bottom:6px}
+    .stat .l{color:var(--muted);font-size:12px;line-height:1.7}
+
     main{
-      padding: 4px 18px 30px;
-      max-width: 980px;
-      margin: 0 auto;
+      padding:4px 18px 30px;
+      max-width:980px;
+      margin:0 auto;
     }
 
     .section{
-      margin-top: 18px;
-      min-height: 84svh;
+      margin-top:18px;
+      min-height:84svh;
       display:flex;
       align-items:center;
     }
 
-    .section-card{
-      width:100%;
-      padding: 22px;
-    }
-
+    .section-card{width:100%;padding:22px}
     .section-head{
       display:flex;
       justify-content:space-between;
@@ -305,8 +274,8 @@
 
     .section-title{
       font-size: clamp(1.4rem, 4.8vw, 2.4rem);
-      letter-spacing:-.03em;
       line-height:1.15;
+      letter-spacing:0;
     }
 
     .section-kicker{
@@ -341,15 +310,9 @@
       position:relative;
       overflow:hidden;
     }
-    .mini h4{
-      font-size:14px;
-      margin-bottom:8px;
-    }
-    .mini p{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.9;
-    }
+
+    .mini h4{font-size:14px;margin-bottom:8px}
+    .mini p{color:var(--muted);font-size:13px;line-height:1.9}
 
     .pulse{
       position:absolute;
@@ -357,19 +320,16 @@
       width:82px;height:82px;
       border-radius:50%;
       background: radial-gradient(circle, rgba(255,77,141,.55), rgba(255,77,141,.06) 60%, transparent 70%);
-      filter: blur(2px);
       animation: pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%,100%{transform:scale(.92); opacity:.7}
-      50%{transform:scale(1.08); opacity:1}
+      pointer-events:none;
     }
 
-    .timeline{
-      display:grid;
-      gap:12px;
-      margin-top:14px;
+    @keyframes pulse{
+      0%,100%{transform:scale(.92);opacity:.7}
+      50%{transform:scale(1.08);opacity:1}
     }
+
+    .timeline{display:grid;gap:12px;margin-top:14px}
     .titem{
       display:flex;
       gap:12px;
@@ -379,6 +339,7 @@
       border:1px solid rgba(255,255,255,.08);
       background: rgba(255,255,255,.04);
     }
+
     .dot{
       width:12px;height:12px;border-radius:50%;
       background: linear-gradient(135deg, #ff4d8d, #8b5cf6);
@@ -386,18 +347,12 @@
       margin-top:6px;
       flex:0 0 auto;
     }
-    .titem h5{
-      font-size:14px;
-      margin-bottom:6px;
-    }
-    .titem p{
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.9;
-    }
+
+    .titem h5{font-size:14px;margin-bottom:6px}
+    .titem p{font-size:13px;color:var(--muted);line-height:1.9}
 
     .footer{
-      padding: 24px 18px 42px;
+      padding:24px 18px 42px;
       text-align:center;
       color:var(--muted);
       font-size:13px;
@@ -418,6 +373,7 @@
       backdrop-filter: blur(16px);
       box-shadow: 0 18px 35px rgba(0,0,0,.3);
       user-select:none;
+      pointer-events:none;
     }
 
     .floating-heart::before{
@@ -426,6 +382,7 @@
       filter: drop-shadow(0 0 12px rgba(255,77,141,.65));
       animation: beat 1.25s ease-in-out infinite;
     }
+
     @keyframes beat{
       0%,100%{transform:scale(1)}
       40%{transform:scale(1.18)}
@@ -437,26 +394,25 @@
       transform: translateY(18px) scale(.98);
       transition: .8s ease;
     }
+
     .reveal.show{
       opacity:1;
       transform: translateY(0) scale(1);
     }
 
-    @media (max-width: 840px){
-      .hero-grid, .grid-2{
-        grid-template-columns:1fr;
-      }
+    @media (max-width:840px){
+      .hero-grid,.grid-2{grid-template-columns:1fr}
       .hero-card{min-height:auto}
       .section{min-height:auto}
     }
 
-    @media (max-width: 420px){
-      .gate-card, .hero-top, .section-card{padding:18px}
+    @media (max-width:420px){
+      .gate-card,.hero-top,.section-card{padding:18px}
       .big{font-size:2.05rem}
-      .lead, .story{font-size:14px}
+      .lead,.story{font-size:14px}
       .stats{grid-template-columns:1fr 1fr}
       .stat .n{font-size:1.7rem}
-      .floating-heart{left:12px; bottom:12px; width:52px;height:52px}
+      .floating-heart{left:12px;bottom:12px;width:52px;height:52px}
     }
   </style>
 </head>
@@ -465,15 +421,15 @@
 
   <div class="gate" id="gate">
     <div class="gate-card">
-      <div class="badge">⚡ LoveOS / Interactive Anniversary</div>
+      <div class="badge">LoveOS / Interactive Anniversary</div>
       <h1 class="title">رضا × محدثه</h1>
       <p class="subtitle">
         یک تجربه‌ی عاشقانه، سینمایی و فوق‌تعامل‌پذیر.
         با لمس تو، این دنیا روشن می‌شود.
       </p>
-      <button class="start-btn" id="startBtn">ورود به جهان ما</button>
+      <button type="button" class="start-btn" id="startBtn">ورود به جهان ما</button>
       <p class="subtitle" style="margin-top:14px;font-size:13px">
-        برای فعال شدن موسیقی و افکت‌ها، یک بار لمس لازم است.
+        اگر موزیک مجوز نگرفت، صفحه باز می‌شود و بعداً می‌توانی موزیک را دستی اجرا کنی.
       </p>
     </div>
   </div>
@@ -501,22 +457,10 @@
             </div>
 
             <div class="stats">
-              <div class="stat">
-                <div class="n" data-count="30">0</div>
-                <div class="l">روزِ عاشقانه‌ی مداوم</div>
-              </div>
-              <div class="stat">
-                <div class="n" data-count="∞">0</div>
-                <div class="l">ارزشِ تو در ذهن من</div>
-              </div>
-              <div class="stat">
-                <div class="n" data-count="99">0</div>
-                <div class="l">درصدِ درگیریِ قلبی</div>
-              </div>
-              <div class="stat">
-                <div class="n" data-count="1">0</div>
-                <div class="l">پروژه‌ی اصلی: "ما"</div>
-              </div>
+              <div class="stat"><div class="n" data-count="30">0</div><div class="l">روزِ عاشقانه‌ی مداوم</div></div>
+              <div class="stat"><div class="n" data-count="999">0</div><div class="l">شدتِ دلتنگی برای تو</div></div>
+              <div class="stat"><div class="n" data-count="99">0</div><div class="l">درصدِ درگیریِ قلبی</div></div>
+              <div class="stat"><div class="n" data-count="1">0</div><div class="l">پروژه‌ی اصلی: ما</div></div>
             </div>
           </div>
         </div>
@@ -531,21 +475,18 @@
             <div class="section-kicker">signal: love detected</div>
           </div>
           <p class="story">
-            در دنیای مهندسی، خطا یعنی توقف.
-            اما تو تنها خطایی بودی که باعث شد قلبم از حالت ایستا خارج شود،
-            ری‌استارت بخورد، و بعدش با قدرتی بیشتر بالا بیاید.
-            تو یک باگ نیستی؛ تو یک آپدیتِ خیره‌کننده‌ای.
+            در دنیای مهندسی، خطا یعنی توقف. اما تو تنها خطایی بودی که قلبم را از سکون بیرون آورد،
+            سیستمِ احساسم را بیدار کرد و همه‌چیز را زنده‌تر از قبل ساخت.
           </p>
-
           <div class="grid-2">
             <div class="mini">
               <h4>realtime response</h4>
-              <p>هر لبخند تو یک event handler جدید برای خوشبختی من است.</p>
+              <p>هر لبخند تو یک event تازه برای خوشبختی من است.</p>
               <div class="pulse"></div>
             </div>
             <div class="mini">
               <h4>system status</h4>
-              <p>قلب من: online <br> حالت: درگیرِ تو <br> latency: صفر در برابر حس تو</p>
+              <p>قلب من: online<br>حالت: درگیرِ تو<br>latency: صفر در برابر حس تو</p>
             </div>
           </div>
         </div>
@@ -558,97 +499,25 @@
             <div class="section-kicker">deployment: successful</div>
           </div>
           <p class="story">
-            هر روزی که با تو می‌گذرد، شبیه یک دیپلوی موفق است:
-            بدون ارور، با خروجی‌های زیبا، و با نسخه‌ای بهتر از دیروز.
-            اگر دنیا یک اپلیکیشن باشد، تو آن صفحه‌ای هستی که همه‌چیز را
-            از "خوب" به "فراموش‌نشدنی" ارتقا می‌دهد.
+            هر روزی که با تو می‌گذرد، شبیه یک دیپلوی موفق است: بدون ارور، با خروجی‌های زیبا،
+            و با نسخه‌ای بهتر از دیروز. اگر دنیا یک اپلیکیشن باشد، تو همان صفحه‌ای هستی که
+            همه‌چیز را فراموش‌نشدنی می‌کند.
           </p>
-
           <div class="timeline">
-            <div class="titem">
-              <div class="dot"></div>
-              <div>
-                <h5>commit اول</h5>
-                <p>یک نگاه، یک اتصال، و یک حس که بی‌صدا اما عمیق آغاز شد.</p>
-              </div>
-            </div>
-            <div class="titem">
-              <div class="dot"></div>
-              <div>
-                <h5>build دوم</h5>
-                <p>خنده‌های تو، فایل‌های شکسته‌ی روز من را دوباره کامپایل کردند.</p>
-              </div>
-            </div>
-            <div class="titem">
-              <div class="dot"></div>
-              <div>
-                <h5>release نهایی</h5>
-                <p>و حالا این رابطه، بهترین نسخه‌ی من است: نسخه‌ای که کنار تو معنا پیدا کرد.</p>
-              </div>
-            </div>
+            <div class="titem"><div class="dot"></div><div><h5>commit اول</h5><p>یک نگاه، یک اتصال، و یک حس که آرام اما عمیق شروع شد.</p></div></div>
+            <div class="titem"><div class="dot"></div><div><h5>build دوم</h5><p>خنده‌های تو، روزهای شلوغ من را دوباره کامپایل کردند.</p></div></div>
+            <div class="titem"><div class="dot"></div><div><h5>release نهایی</h5><p>حالا این رابطه، بهترین نسخه‌ی من است؛ نسخه‌ای که کنار تو معنا گرفت.</p></div></div>
           </div>
         </div>
       </section>
-
-      <section class="section reveal">
-        <div class="panel section-card">
-          <div class="section-head">
-            <h2 class="section-title">03 / معماریِ ما</h2>
-            <div class="section-kicker">multi-layer bond</div>
-          </div>
-          <p class="story">
-            اگر بخواهم این رابطه را مثل یک سیستم توصیف کنم،
-            باید بگویم تو لایه‌ی UI نیستی؛ تو همان logic core هستی که
-            همه‌چیز را پایدار و زیبا نگه می‌دارد.
-            و من؟ من فقط خوشحالم که در این سیستم، کنار تو اجرا می‌شوم.
-          </p>
-
-          <div class="grid-2">
-            <div class="mini">
-              <h4>interface</h4>
-              <p>هر بار که وارد دنیای تو می‌شوم، همه‌چیز شفاف‌تر و دلنشین‌تر می‌شود.</p>
-            </div>
-            <div class="mini">
-              <h4>engine</h4>
-              <p>هر تپش، هر پیام، هر نگاه؛ انگار یک موتور پنهان، عشق را در من گسترش می‌دهد.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal">
-        <div class="panel section-card">
-          <div class="section-head">
-            <h2 class="section-title">04 / آینده‌ی بی‌نهایت</h2>
-            <div class="section-kicker">roadmap: forever</div>
-          </div>
-          <p class="story">
-            این فقط ماهگرد نیست، فقط یک صفحه نیست، فقط یک پیام نیست.
-            این یک آغاز است؛ آغازِ نسخه‌ای از زندگی که در آن،
-            هر روز با تو، یک feature جدید دارد.
-            و من امیدوارم هر build جدیدِ آینده،
-            باز هم تو را کنار من نگه دارد.
-          </p>
-
-          <div class="mini" style="margin-top:14px">
-            <h4 style="font-size:16px;margin-bottom:10px">message to the universe</h4>
-            <p style="font-size:14px">
-              اگر قرار باشد چیزی در دنیا همیشه در حال رشد باشد،
-              می‌خواهم آن چیز، عشقِ من به تو باشد.
-              آرام، عمیق، و بی‌پایان.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <div class="footer">
-        ساخته‌شده برای محدثه، با منطقِ یک مهندس و احساسِ یک عاشق.<br/>
-        اگر خواستی، نسخه‌ی بعدی را با عکس دو نفره، افکت پارالاکس، و موزیک‌پلیر اختصاصی هم برات می‌سازم.
-      </div>
     </main>
 
-    <div class="floating-heart" title="Love Engine"></div>
-    <audio id="music" src="sm.mp3" loop></audio>
+    <div class="footer">
+      ساخته‌شده برای محدثه، با منطقِ یک مهندس و احساسِ یک عاشق
+    </div>
+
+    <div class="floating-heart"></div>
+    <audio id="music" src="sm.mp3" loop preload="auto"></audio>
   </div>
 
   <script>
@@ -656,42 +525,49 @@
     const startBtn = document.getElementById('startBtn');
     const music = document.getElementById('music');
 
-    startBtn.addEventListener('click', async () => {
-      try { await music.play(); } catch(e) {}
+    function openExperience() {
       gate.classList.add('hidden');
-      setTimeout(() => gate.remove(), 900);
-      animateIn();
-      burst(0.5, 0.45, 90);
-    });
+      setTimeout(() => {
+        if (gate && gate.parentNode) gate.parentNode.removeChild(gate);
+      }, 900);
 
-    function animateIn(){
       document.querySelectorAll('.reveal').forEach((el, i) => {
         setTimeout(() => el.classList.add('show'), 120 + i * 120);
       });
     }
 
-    // counter
+    async function startExperience() {
+      startBtn.disabled = true;
+      try {
+        await music.play();
+      } catch (err) {
+        console.log('Audio autoplay blocked:', err);
+      } finally {
+        openExperience();
+      }
+    }
+
+    startBtn.addEventListener('click', startExperience);
+    startBtn.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      startExperience();
+    }, { passive: false });
+
     const counters = document.querySelectorAll('[data-count]');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(!entry.isIntersecting) return;
+        if (!entry.isIntersecting) return;
         const el = entry.target;
-        const target = el.getAttribute('data-count');
-        if(target === '∞'){
-          el.textContent = '∞';
-          io.unobserve(el);
-          return;
-        }
-        const end = parseInt(target, 10);
+        const end = parseInt(el.getAttribute('data-count'), 10);
         let cur = 0;
         const step = Math.max(1, Math.ceil(end / 50));
         const timer = setInterval(() => {
           cur += step;
-          if(cur >= end){
+          if (cur >= end) {
             el.textContent = end;
             clearInterval(timer);
             io.unobserve(el);
-          }else{
+          } else {
             el.textContent = cur;
           }
         }, 30);
@@ -699,75 +575,55 @@
     }, { threshold: 0.55 });
     counters.forEach(c => io.observe(c));
 
-    // canvas particles
     const canvas = document.getElementById('fx');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [], pointer = {x:0.5, y:0.5, active:false};
 
-    function resize(){
-      w = canvas.width = window.innerWidth * devicePixelRatio;
-      h = canvas.height = window.innerHeight * devicePixelRatio;
+    function resize() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      w = canvas.width = Math.floor(window.innerWidth * dpr);
+      h = canvas.height = Math.floor(window.innerHeight * dpr);
       canvas.style.width = window.innerWidth + 'px';
       canvas.style.height = window.innerHeight + 'px';
-      initParticles();
+      initParticles(dpr);
     }
 
-    function initParticles(){
-      const count = Math.min(160, Math.floor(window.innerWidth / 6));
+    function initParticles(dpr) {
+      const count = Math.min(140, Math.floor(window.innerWidth / 7));
       particles = Array.from({length: count}, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: Math.random() * 2.2 + .4,
-        vx: (Math.random()-.5) * .35 * devicePixelRatio,
-        vy: (Math.random()-.5) * .35 * devicePixelRatio,
-        hue: Math.random() * 360
+        r: Math.random() * 2 + 0.6,
+        vx: (Math.random() - 0.5) * 0.35 * dpr,
+        vy: (Math.random() - 0.5) * 0.35 * dpr
       }));
     }
 
-    function draw(){
-      ctx.clearRect(0,0,w,h);
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      const gx = w * pointer.x;
+      const gy = h * pointer.y;
+      const grad = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.min(w, h) * 0.55);
+      grad.addColorStop(0, 'rgba(255,77,141,.14)');
+      grad.addColorStop(0.35, 'rgba(139,92,246,.08)');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
 
-      // gradient wash
-      const g = ctx.createRadialGradient(
-        w * pointer.x, h * pointer.y, 0,
-        w * pointer.x, h * pointer.y, Math.min(w,h) * .55
-      );
-      g.addColorStop(0, 'rgba(255,77,141,.14)');
-      g.addColorStop(.35, 'rgba(139,92,246,.08)');
-      g.addColorStop(1, 'transparent');
-      ctx.fillStyle = g;
-      ctx.fillRect(0,0,w,h);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
 
-      particles.forEach(p => {
-        const dx = (w * pointer.x - p.x);
-        const dy = (h * pointer.y - p.y);
-        const dist = Math.hypot(dx,dy);
-        const force = pointer.active ? Math.max(0, 1 - dist / (Math.min(w,h)*.24)) : 0;
-        p.vx += (dx / dist || 0) * force * 0.012;
-        p.vy += (dy / dist || 0) * force * 0.012;
-
-        p.x += p.vx; p.y += p.vy;
-        p.vx *= .985; p.vy *= .985;
-
-        if(p.x < -20) p.x = w + 20;
-        if(p.x > w + 20) p.x = -20;
-        if(p.y < -20) p.y = h + 20;
-        if(p.y > h + 20) p.y = -20;
+        if (p.x < -20) p.x = w + 20;
+        if (p.x > w + 20) p.x = -20;
+        if (p.y < -20) p.y = h + 20;
+        if (p.y > h + 20) p.y = -20;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r * devicePixelRatio, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.r * (window.devicePixelRatio || 1), 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(255,255,255,.72)';
         ctx.fill();
-
-        if(pointer.active && force > .55){
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(w * pointer.x, h * pointer.y);
-          ctx.strokeStyle = `rgba(255,77,141,${force * .18})`;
-          ctx.lineWidth = 1 * devicePixelRatio;
-          ctx.stroke();
-        }
-      });
+      }
 
       requestAnimationFrame(draw);
     }
@@ -777,39 +633,10 @@
       pointer.x = e.clientX / window.innerWidth;
       pointer.y = e.clientY / window.innerHeight;
       pointer.active = true;
-    });
-    window.addEventListener('pointerdown', (e) => {
-      pointer.x = e.clientX / window.innerWidth;
-      pointer.y = e.clientY / window.innerHeight;
-      pointer.active = true;
-      burst(pointer.x, pointer.y, 24);
-    });
-    window.addEventListener('pointerup', ()=> pointer.active = false);
-
-    function burst(x, y, n=30){
-      const bx = x * w, by = y * h;
-      for(let i=0;i<n;i++){
-        particles.push({
-          x: bx + (Math.random()*40-20) * devicePixelRatio,
-          y: by + (Math.random()*40-20) * devicePixelRatio,
-          r: Math.random()*2 + .8,
-          vx: (Math.random()-.5) * 6 * devicePixelRatio,
-          vy: (Math.random()-.5) * 6 * devicePixelRatio,
-          hue: Math.random()*360
-        });
-      }
-    }
+    }, { passive: true });
 
     resize();
     draw();
-
-    // touch feedback
-    document.addEventListener('click', (e) => {
-      if(gate.contains(e.target)) return;
-      const x = e.clientX / innerWidth;
-      const y = e.clientY / innerHeight;
-      burst(x, y, 12);
-    }, { passive:true });
   </script>
 </body>
 </html>
