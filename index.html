@@ -2,630 +2,456 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#060612" />
-  <title>برای محدثه</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#160814" />
+  <title>تقدیم به محدثه</title>
   <style>
-    :root{
-      --bg1:#05050a;
-      --bg2:#11061b;
-      --bg3:#071c2a;
-      --pink:#ff4da6;
-      --rose:#ff7bc8;
-      --violet:#8b5cf6;
-      --cyan:#22d3ee;
-      --text:#f6f7ff;
-      --muted:rgba(246,247,255,.72);
-      --glass:rgba(255,255,255,.08);
-      --glass2:rgba(255,255,255,.12);
-      --stroke:rgba(255,255,255,.14);
-      --shadow:0 25px 90px rgba(0,0,0,.5);
+    :root {
+      --bg1: #120610;
+      --bg2: #1c0b1b;
+      --bg3: #2a1030;
+      --pink: #ff5c9d;
+      --rose: #ff7ab8;
+      --violet: #9b6cff;
+      --gold: #ffd66b;
+      --text: #fff7fb;
+      --muted: rgba(255, 247, 251, 0.78);
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.16);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{width:100%;min-height:100%;overflow-x:hidden;background:
-      radial-gradient(circle at 20% 20%, rgba(255,77,166,.18), transparent 26%),
-      radial-gradient(circle at 80% 15%, rgba(139,92,246,.15), transparent 24%),
-      radial-gradient(circle at 50% 85%, rgba(34,211,238,.12), transparent 28%),
-      linear-gradient(135deg,var(--bg1),var(--bg2) 48%,var(--bg3));
-      color:var(--text);
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      -webkit-tap-highlight-color:transparent;
-      overscroll-behavior:none;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;inset:0;
-      pointer-events:none;
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        linear-gradient(transparent 0 49.5%, rgba(255,255,255,.03) 50%, transparent 50.5% 100%),
-        linear-gradient(90deg, transparent 0 49.5%, rgba(255,255,255,.03) 50%, transparent 50.5% 100%);
-      background-size: 90px 90px;
-      opacity:.18;
-      mask-image: radial-gradient(circle at center, black 25%, transparent 100%);
-      z-index:1;
+        radial-gradient(circle at 20% 20%, rgba(255, 92, 157, 0.18), transparent 26%),
+        radial-gradient(circle at 80% 20%, rgba(155, 108, 255, 0.18), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(255, 214, 107, 0.12), transparent 30%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 48%, var(--bg3));
+      color: var(--text);
+      -webkit-tap-highlight-color: transparent;
     }
 
-    #fx{
-      position:fixed;inset:0;width:100%;height:100%;
-      z-index:0;pointer-events:none;
-    }
-
-    .grain{
-      position:fixed;inset:-20%;
-      pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      opacity:.08;
-      z-index:2;
-      mix-blend-mode:screen;
-      animation: drift 10s linear infinite;
-    }
-    @keyframes drift{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-5%,3%,0)}}
-
-    .intro{
-      position:fixed;inset:0;z-index:20;
-      display:grid;place-items:center;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
       background:
-        radial-gradient(circle at center, rgba(255,77,166,.18), transparent 34%),
-        linear-gradient(180deg, rgba(3,4,10,.96), rgba(3,4,10,.88));
-      backdrop-filter: blur(8px);
-      transition: .8s ease;
-    }
-    .intro.hide{opacity:0;pointer-events:none;transform:scale(1.02)}
-    .intro-card{
-      width:min(92vw,520px);
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
-      box-shadow:var(--shadow);
-      border-radius:28px;
-      padding:24px 18px;
-      text-align:center;
-      overflow:hidden;
-      position:relative;
-    }
-    .intro-card::before{
-      content:"";
-      position:absolute;inset:auto -20% -40% auto;
-      width:240px;height:240px;
-      background:radial-gradient(circle, rgba(255,77,166,.38), transparent 65%);
-      filter:blur(12px);
-    }
-    .intro h1{
-      font-size:clamp(2rem, 7vw, 3.4rem);
-      line-height:1.05;
-      margin-bottom:12px;
-      background:linear-gradient(135deg,#fff 0%, #ff7bc8 35%, #a78bfa 70%, #67e8f9 100%);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    }
-    .intro p{
-      color:var(--muted);
-      line-height:2;
-      font-size:14px;
-      margin-bottom:18px;
+        linear-gradient(transparent 49.5%, rgba(255,255,255,0.03) 50%, transparent 50.5%),
+        linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,0.03) 50%, transparent 50.5%);
+      background-size: 84px 84px;
+      opacity: 0.14;
+      mask-image: radial-gradient(circle at center, black 20%, transparent 100%);
     }
 
-    .btn{
-      border:none;
-      cursor:pointer;
-      width:100%;
-      padding:16px 18px;
-      border-radius:18px;
-      color:#fff;
-      font-size:16px;
-      font-weight:800;
-      letter-spacing:.2px;
-      background:linear-gradient(135deg, var(--pink), var(--violet));
-      box-shadow:0 12px 30px rgba(255,77,166,.28);
-      touch-action: manipulation;
-      transition:.2s ease;
-    }
-    .btn:active{transform:scale(.98)}
-
-    .app{
-      position:relative;
-      z-index:3;
-      min-height:100svh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      padding:18px;
+    .orb {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(28px);
+      opacity: 0.22;
+      pointer-events: none;
+      animation: drift 11s ease-in-out infinite;
     }
 
-    .hero{
-      width:min(100%, 1040px);
-      margin:0 auto;
-      min-height: calc(100svh - 36px);
-      display:grid;
-      grid-template-rows:auto 1fr auto;
-      gap:16px;
+    .orb.one {
+      top: -90px;
+      left: -90px;
+      background: radial-gradient(circle, rgba(255, 92, 157, 0.95), transparent 65%);
     }
 
-    .top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
+    .orb.two {
+      top: 10%;
+      right: -100px;
+      background: radial-gradient(circle, rgba(155, 108, 255, 0.9), transparent 65%);
+      animation-duration: 13s;
     }
 
-    .chip{
-      padding:8px 12px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
-      border-radius:999px;
-      color:var(--muted);
-      font-size:12px;
-      backdrop-filter: blur(14px);
+    .orb.three {
+      bottom: -110px;
+      left: 20%;
+      background: radial-gradient(circle, rgba(255, 214, 107, 0.85), transparent 65%);
+      animation-duration: 15s;
     }
 
-    .titlebox{
-      border-radius:30px;
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(20px);
-      padding:22px;
-      position:relative;
-      overflow:hidden;
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0,0,0) scale(1); }
+      50% { transform: translate3d(18px,-16px,0) scale(1.08); }
     }
 
-    .titlebox::before{
-      content:"";
-      position:absolute;inset:auto auto -40% -18%;
-      width:320px;height:320px;
-      background:radial-gradient(circle, rgba(34,211,238,.18), transparent 64%);
-      filter:blur(10px);
-      pointer-events:none;
+    .wrap {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 18px;
     }
 
-    h2{
-      font-size:clamp(2rem, 8vw, 4.8rem);
-      line-height:1.02;
-      letter-spacing:-.02em;
-      margin-bottom:12px;
-    }
-
-    .glow{
-      background:linear-gradient(135deg,#fff 0%, #ff7bc8 28%, #a78bfa 62%, #67e8f9 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .desc{
-      color:var(--muted);
-      font-size:15px;
-      line-height:2.05;
-      max-width: 64ch;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
-    }
-
-    .card{
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.06);
+    .card {
+      width: min(100%, 760px);
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+      box-shadow: var(--shadow);
       backdrop-filter: blur(18px);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      position:relative;
-      min-height:260px;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: transform .35s ease, box-shadow .35s ease;
     }
 
-    .card .inner{padding:18px}
-    .card h3{
-      font-size:1.25rem;
-      margin-bottom:10px;
-    }
-    .card p{
-      color:var(--muted);
-      line-height:2;
-      font-size:14px;
+    .card:active { transform: scale(0.995); }
+
+    .hero {
+      text-align: center;
+      padding: 24px 18px 16px;
     }
 
-    .pulse{
-      position:absolute;
-      inset:auto auto -60px -40px;
-      width:240px;height:240px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(255,77,166,.28), transparent 62%);
-      animation: pulse 2.2s ease-in-out infinite;
-      pointer-events:none;
-    }
-    @keyframes pulse{
-      0%,100%{transform:scale(.9);opacity:.75}
-      50%{transform:scale(1.12);opacity:1}
-    }
-
-    .actions{
-      display:grid;
-      gap:12px;
-      grid-template-columns:1fr 1fr;
-      padding:18px;
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 16px;
     }
 
-    .action{
-      border:none;
-      cursor:pointer;
-      border-radius:22px;
-      min-height:88px;
-      color:#fff;
-      font-size:15px;
-      font-weight:800;
-      background:linear-gradient(135deg, rgba(255,77,166,.9), rgba(139,92,246,.9));
-      box-shadow:0 14px 35px rgba(255,77,166,.22);
-      position:relative;
-      overflow:hidden;
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--gold));
+      box-shadow: 0 0 16px rgba(255, 92, 157, 0.9);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 6.5vw, 4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .glow {
+      background: linear-gradient(135deg, #fff 0%, var(--rose) 28%, var(--violet) 62%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .typed {
+      min-height: 132px;
+      max-width: 44ch;
+      margin: 0 auto 8px;
+      font-size: clamp(15px, 3.8vw, 18px);
+      line-height: 2.05;
+      color: var(--muted);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 1.1em;
+      vertical-align: -0.2em;
+      margin-right: 3px;
+      border-radius: 2px;
+      background: linear-gradient(var(--pink), var(--gold));
+      animation: blink .8s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 0 18px 18px;
+    }
+
+    button {
+      min-height: 62px;
+      border: none;
+      border-radius: 18px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
       touch-action: manipulation;
-    }
-    .action:nth-child(2){
-      background:linear-gradient(135deg, rgba(34,211,238,.86), rgba(139,92,246,.9));
-    }
-    .action::after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background:linear-gradient(135deg, transparent, rgba(255,255,255,.25), transparent);
-      transform:rotate(25deg) translateX(-120%);
-      transition:1s ease;
-    }
-    .action:hover::after,
-    .action:active::after{
-      transform:rotate(25deg) translateX(120%);
+      transition: transform .15s ease, filter .2s ease;
     }
 
-    .timeline{
-      display:grid;
-      gap:12px;
-      padding:18px;
+    .start {
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      box-shadow: 0 16px 34px rgba(255, 92, 157, 0.25);
     }
 
-    .row{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding:14px;
-      border-radius:18px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
+    .surprise {
+      background: linear-gradient(135deg, var(--gold), var(--rose));
+      box-shadow: 0 16px 34px rgba(255, 214, 107, 0.18);
     }
 
-    .dot{
-      width:14px;height:14px;border-radius:50%;
-      background:linear-gradient(135deg, var(--pink), var(--cyan));
-      box-shadow:0 0 18px rgba(255,77,166,.65);
-      margin-top:5px;
-      flex:none;
+    button:active { transform: scale(0.98); filter: brightness(1.04); }
+
+    .panel {
+      padding: 0 18px 18px;
+      display: grid;
+      gap: 12px;
     }
 
-    .row h4{font-size:14px;margin-bottom:6px}
-    .row p{font-size:13px;line-height:1.9;color:var(--muted)}
-
-    .meter{
-      height:10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.09);
-      overflow:hidden;
-      margin-top:14px;
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .meter span{
-      display:block;height:100%;width:0%;
-      background:linear-gradient(90deg,var(--pink),var(--violet),var(--cyan));
-      box-shadow:0 0 20px rgba(255,77,166,.35);
-      animation: fill 3.2s ease forwards;
-    }
-    @keyframes fill{to{width:100%}}
-
-    .hint{
-      margin-top:12px;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.8;
+    .mini {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .floating-heart{
-      position:fixed;
-      left:16px;
-      bottom:16px;
-      width:58px;height:58px;
-      border-radius:18px;
-      background:linear-gradient(135deg, rgba(255,77,166,.24), rgba(139,92,246,.20));
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter: blur(14px);
-      z-index:5;
-      pointer-events:none;
-      display:grid;
-      place-items:center;
-      box-shadow:0 16px 40px rgba(0,0,0,.3);
-    }
-    .floating-heart::before{
-      content:"❤";
-      font-size:22px;
-      filter: drop-shadow(0 0 12px rgba(255,77,166,.7));
-      animation: beat 1s ease-in-out infinite;
-    }
-    @keyframes beat{
-      0%,100%{transform:scale(1)}
-      45%{transform:scale(1.22)}
-      60%{transform:scale(.97)}
+    .mini b {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 3px;
     }
 
-    .show{
-      animation: pop .75s cubic-bezier(.2,.9,.2,1) both;
-    }
-    @keyframes pop{
-      from{opacity:0;transform:translateY(20px) scale(.96)}
-      to{opacity:1;transform:translateY(0) scale(1)}
+    .mini span {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
     }
 
-    .burst{
-      position:fixed;
-      width:14px;height:14px;
-      border-radius:50%;
-      pointer-events:none;
-      z-index:6;
-      box-shadow:0 0 18px currentColor;
-      animation: boom .9s ease-out forwards;
-    }
-    @keyframes boom{
-      0%{transform:translate(-50%,-50%) scale(.4);opacity:1}
-      100%{transform:translate(-50%,-50%) scale(18);opacity:0}
+    .mini .icons {
+      font-size: 18px;
+      letter-spacing: 3px;
+      white-space: nowrap;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 92, 157, 0.55);
     }
 
-    .heart{
-      position:fixed;
-      z-index:6;
-      pointer-events:none;
-      font-size:18px;
-      text-shadow:0 0 14px rgba(255,77,166,.75);
-      animation: floatUp 1.5s ease-out forwards;
-      filter: drop-shadow(0 0 10px rgba(255,77,166,.5));
-    }
-    @keyframes floatUp{
-      0%{transform:translate(-50%,-50%) scale(.7);opacity:1}
-      100%{transform:translate(-50%,-140px) scale(1.7);opacity:0}
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
-      .hero{min-height:auto}
+    .progress i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--pink), var(--violet), var(--gold));
+      animation: fill 4s ease forwards;
     }
 
-    @media (max-width: 420px){
-      .app{padding:12px}
-      .titlebox,.card{border-radius:24px}
-      .actions{grid-template-columns:1fr}
-      h2{font-size:2.3rem}
-      .desc{font-size:14px}
-      .action{min-height:78px}
-      .floating-heart{left:12px;bottom:12px;width:52px;height:52px}
+    @keyframes fill { to { width: 100%; } }
+
+    .hint {
+      padding: 0 18px 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .heart {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      font-size: 18px;
+      animation: rise 1.5s ease-out forwards;
+      filter: drop-shadow(0 0 10px rgba(255, 92, 157, 0.7));
+    }
+
+    @keyframes rise {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+      100% { transform: translate(-50%, -140px) scale(1.8); opacity: 0; }
+    }
+
+    .flash {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .flash.on {
+      animation: flash .45s ease-out;
+    }
+
+    @keyframes flash {
+      0% { opacity: 0; }
+      20% { opacity: 0.18; }
+      100% { opacity: 0; }
+    }
+
+    .shake {
+      animation: shake .35s linear 1;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0,0); }
+      20% { transform: translate(2px,-1px); }
+      40% { transform: translate(-2px,2px); }
+      60% { transform: translate(2px,1px); }
+      80% { transform: translate(-1px,-2px); }
+      100% { transform: translate(0,0); }
+    }
+
+    @media (max-width: 520px) {
+      .card { border-radius: 24px; }
+      .actions { grid-template-columns: 1fr; }
+      .typed { min-height: 150px; }
+      .mini { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-  <canvas id="fx"></canvas>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+  <div class="flash" id="flash"></div>
 
-  <div class="grain"></div>
-
-  <div class="intro" id="intro">
-    <div class="intro-card">
-      <h1>آماده‌ای برای یک سورپرایز؟</h1>
-      <p>روی دکمه بزن تا موسیقی <b>sm.mp3</b> شروع شود و صفحه به حالت انفجاری و هیجانی وارد شود.</p>
-      <button class="btn" id="startBtn">شروع سورپرایز ✨</button>
-    </div>
-  </div>
-
-  <div class="app">
-    <section class="hero show">
-      <div class="top">
-        <div class="chip">Love Engine / Interactive Mode</div>
-        <div class="chip">Tap anywhere for hearts & light</div>
+  <main class="wrap">
+    <section class="card" id="card">
+      <div class="hero">
+        <div class="tag"><span class="dot"></span> تقدیم به محدثه</div>
+        <h1><span class="glow">محدثه</span>، ماهگردمون مبارک ❤️</h1>
+        <div class="typed" id="typed"></div>
       </div>
 
-      <div class="titlebox show">
-        <h2><span class="glow">محدثه</span>، تو دلیلِ هیجانِ این جهان شدی</h2>
-        <p class="desc">
-          اینجا هر حرکت تو یک واکنش دارد؛ نور می‌پرد، قلب‌ها ظاهر می‌شوند،
-          و صحنه مثل یک کنسرت عاشقانه زنده می‌شود. این صفحه برای آرام بودن ساخته نشده؛
-          برای ضربان، نور، و حسِ «وااای» ساخته شده.
-        </p>
+      <div class="actions">
+        <button class="start" id="startBtn">شروع موسیقی</button>
+        <button class="surprise" id="surpriseBtn">سوپرایز کن</button>
       </div>
 
-      <div class="grid">
-        <div class="card show">
-          <div class="pulse"></div>
-          <div class="inner">
-            <h3>اتفاق‌های سریع، شدید و جذاب</h3>
-            <p>
-              با هر لمس، یک انفجار نور و قلب ساخته می‌شود. با حرکت دست یا ماوس،
-              ذرات دنبال مسیرت می‌آیند. صحنه همیشه در حال تغییر است، انگار صفحه نفس می‌کشد.
-            </p>
-            <div class="meter"><span></span></div>
-            <div class="hint">موسیقی از فایل <code>sm.mp3</code> پخش می‌شود. اگر صدا نیامد، حتماً فایل کنار <code>index.html</code> باشد.</div>
+      <div class="panel">
+        <div class="mini">
+          <div>
+            <b>هر لمس، یک قلب برای تو</b>
+            <span>این صفحه با اسم تو روشن‌تر می‌شود.</span>
           </div>
+          <div class="icons">❤ ✦ ✨</div>
         </div>
 
-        <div class="card show">
-          <div class="timeline">
-            <div class="row">
-              <div class="dot"></div>
-              <div>
-                <h4>فاز ۱: ورودِ خفن</h4>
-                <p>صفحه با نور و تکان شروع می‌شود؛ مثل یک شروع ناگهانی و جذاب.</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="dot"></div>
-              <div>
-                <h4>فاز ۲: انفجار احساس</h4>
-                <p>هر لمس، قلب‌ها و موج‌های نوری می‌سازد تا صفحه همیشه زنده بماند.</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="dot"></div>
-              <div>
-                <h4>فاز ۳: محدثه در مرکز</h4>
-                <p>همه‌چیز به یک نقطه می‌رسد: تو. چون این نمایش برای تو طراحی شده.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="progress"><i></i></div>
       </div>
 
-      <button class="action show" id="boomBtn">انفجار قلب و نور</button>
+      <div class="hint">
+        فایل <code>sm.mp3</code> باید کنار <code>index.html</code> باشد.  
+        بعد از شروع، هر جای صفحه را لمس کنی، قلب و نور می‌سازد.
+      </div>
     </section>
-  </div>
+  </main>
 
-  <div class="floating-heart"></div>
-
-  <audio id="music" preload="auto" loop>
+  <audio id="music" loop preload="auto">
     <source src="sm.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const canvas = document.getElementById('fx');
-    const ctx = canvas.getContext('2d');
-    const intro = document.getElementById('intro');
-    const startBtn = document.getElementById('startBtn');
-    const boomBtn = document.getElementById('boomBtn');
+    const typed = document.getElementById('typed');
     const music = document.getElementById('music');
+    const startBtn = document.getElementById('startBtn');
+    const surpriseBtn = document.getElementById('surpriseBtn');
+    const flash = document.getElementById('flash');
+    const card = document.getElementById('card');
 
-    let W, H, DPR;
-    let particles = [];
-    let pointer = { x: 0.5, y: 0.5, vx: 0, vy: 0, down: false };
+    const lines = [
+      "عزیزترینم، محدثه...",
+      "یک ماه گذشت، پر از حس‌های تازه و قشنگ.",
+      "توی این ۳۰ روز یاد گرفتم که چطور با تو خوشبخت‌ترین آدم دنیا باشم.",
+      "این صفحه یه هدیه کوچیک از طرف منه،",
+      "برای اینکه بدونی ضربان قلب من، با اسم تو تنظیم شده.",
+      "هرجا که لمسش کنی، یه قلب برای تو میسازه..."
+    ];
 
-    function resize(){
-      DPR = Math.max(1, window.devicePixelRatio || 1);
-      W = canvas.width = Math.floor(innerWidth * DPR);
-      H = canvas.height = Math.floor(innerHeight * DPR);
-      canvas.style.width = innerWidth + 'px';
-      canvas.style.height = innerHeight + 'px';
-      initParticles();
-    }
+    let started = false;
 
-    function initParticles(){
-      const count = Math.min(340, Math.floor(innerWidth / 3.8));
-      particles = Array.from({length: count}, (_, i) => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 1.3 * DPR,
-        vy: (Math.random() - 0.5) * 1.3 * DPR,
-        r: (Math.random() * 2.4 + 0.7) * DPR,
-        hue: [320, 345, 260, 190][i % 4]
-      }));
-    }
+    function typeText(index = 0, charIndex = 0) {
+      if (index >= lines.length) return;
+      const current = lines[index];
+      typed.innerHTML = current.slice(0, charIndex) + '<span class="cursor"></span>';
 
-    function pointerMove(x, y){
-      pointer.vx = x - pointer.x;
-      pointer.vy = y - pointer.y;
-      pointer.x = x;
-      pointer.y = y;
-    }
-
-    addEventListener('pointermove', e => pointerMove(e.clientX / innerWidth, e.clientY / innerHeight), { passive:true });
-    addEventListener('pointerdown', e => { pointer.down = true; pointerMove(e.clientX / innerWidth, e.clientY / innerHeight); burst(e.clientX, e.clientY); }, { passive:true });
-    addEventListener('pointerup', () => pointer.down = false, { passive:true });
-
-    function burst(x,y){
-      const colors = ['#ff4da6','#8b5cf6','#22d3ee','#ff7bc8'];
-      for(let i=0;i<22;i++){
-        const s = document.createElement('div');
-        s.className = 'burst';
-        s.style.left = x + 'px';
-        s.style.top = y + 'px';
-        s.style.color = colors[i % colors.length];
-        s.style.background = colors[i % colors.length];
-        s.style.width = (8 + Math.random()*10) + 'px';
-        s.style.height = s.style.width;
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 900);
-      }
-      for(let i=0;i<14;i++){
-        const h = document.createElement('div');
-        h.className = 'heart';
-        h.textContent = '❤';
-        h.style.left = (x + (Math.random()*60-30)) + 'px';
-        h.style.top = (y + (Math.random()*60-30)) + 'px';
-        h.style.color = colors[i % colors.length];
-        h.style.fontSize = (14 + Math.random()*18) + 'px';
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 1500);
+      const speed = charIndex < current.length ? 42 : 650;
+      if (charIndex < current.length) {
+        setTimeout(() => typeText(index, charIndex + 1), speed);
+      } else {
+        setTimeout(() => typeText(index + 1, 0), speed);
       }
     }
 
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-
-      const gx = pointer.x * W;
-      const gy = pointer.y * H;
-
-      const rg = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.min(W,H) * 0.55);
-      rg.addColorStop(0, pointer.down ? 'rgba(255,77,166,.28)' : 'rgba(255,77,166,.16)');
-      rg.addColorStop(.3, 'rgba(139,92,246,.10)');
-      rg.addColorStop(1, 'transparent');
-      ctx.fillStyle = rg;
-      ctx.fillRect(0,0,W,H);
-
-      for(const p of particles){
-        const dx = gx - p.x;
-        const dy = gy - p.y;
-        const dist = Math.max(35 * DPR, Math.hypot(dx,dy));
-        const force = (pointer.down ? 0.09 : 0.04) * DPR / dist;
-
-        p.vx += dx * force;
-        p.vy += dy * force;
-
-        p.vx += Math.sin((p.y + performance.now()*0.03) * 0.002) * 0.02 * DPR;
-        p.vy += Math.cos((p.x + performance.now()*0.03) * 0.002) * 0.02 * DPR;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        p.vx *= 0.985;
-        p.vy *= 0.985;
-
-        if(p.x < -20) p.x = W + 20;
-        if(p.x > W + 20) p.x = -20;
-        if(p.y < -20) p.y = H + 20;
-        if(p.y > H + 20) p.y = -20;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r + (pointer.down ? 1.1 * DPR : 0), 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue},100%,74%,.8)`;
-        ctx.fill();
-      }
-
-      requestAnimationFrame(draw);
+    function heartAt(x, y) {
+      const el = document.createElement('div');
+      el.className = 'heart';
+      const hearts = ['❤', '💖', '✨', '💘'];
+      el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.fontSize = (16 + Math.random() * 18) + 'px';
+      el.style.color = ['#ff5c9d', '#ff7ab8', '#9b6cff', '#ffd66b'][Math.floor(Math.random() * 4)];
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1500);
     }
 
-    function startMusic(){
-      intro.classList.add('hide');
-      music.volume = 0.95;
+    function burst(x, y) {
+      flash.classList.remove('on');
+      void flash.offsetWidth;
+      flash.classList.add('on');
+
+      card.classList.remove('shake');
+      void card.offsetWidth;
+      card.classList.add('shake');
+
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          heartAt(
+            x + (Math.random() * 80 - 40),
+            y + (Math.random() * 50 - 25)
+          );
+        }, i * 32);
+      }
+
+      if (navigator.vibrate) navigator.vibrate([20, 30, 20]);
+    }
+
+    function startExperience() {
+      if (started) return;
+      started = true;
+      music.volume = 0.9;
       music.play().catch(() => {});
-      burst(innerWidth * .5, innerHeight * .45);
+      typeText();
+
+      document.body.addEventListener('pointerdown', (e) => {
+        heartAt(e.clientX, e.clientY);
+        if (navigator.vibrate) navigator.vibrate(16);
+      }, { passive: true });
     }
 
-    startBtn.addEventListener('click', startMusic);
-    boomBtn.addEventListener('click', () => {
-      const x = innerWidth * (0.35 + Math.random()*0.3);
-      const y = innerHeight * (0.35 + Math.random()*0.25);
-      burst(x,y);
-      music.currentTime = Math.min(music.duration || 0, music.currentTime + 3);
-      music.play().catch(() => {});
+    startBtn.addEventListener('click', () => {
+      startExperience();
+      burst(window.innerWidth * 0.5, window.innerHeight * 0.42);
     });
 
-    addEventListener('click', (e) => {
-      if (intro.classList.contains('hide')) burst(e.clientX, e.clientY);
-    }, { passive:true });
-
-    addEventListener('resize', resize);
-    resize();
-    draw();
+    surpriseBtn.addEventListener('click', () => {
+      startExperience();
+      const x = window.innerWidth * (0.42 + Math.random() * 0.2);
+      const y = window.innerHeight * (0.35 + Math.random() * 0.18);
+      burst(x, y);
+      music.currentTime = Math.min((music.duration || 0), music.currentTime + 2);
+      music.play().catch(() => {});
+    });
   </script>
 </body>
 </html>
